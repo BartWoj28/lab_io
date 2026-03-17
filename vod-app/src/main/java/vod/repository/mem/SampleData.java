@@ -19,7 +19,7 @@ class SampleData {
 
         Producer steelseries = new Producer(1, "Steelseries", "Denmark");
         Producer acer = new Producer(2, "Acer", "Taiwan");
-        Producer razer = new Producer(3, "Andrzej", "USA");
+        Producer razer = new Producer(3, "Razer", "USA");
         Producer lenovo = new Producer(4, "Lenovo", "China");
 
         Product arctisNova = new Product(1, "Arctis Nova Elite", "https://images.ctfassets.net/hmm5mo4qf4mf/7tSln6l9gp3Xhcbx0jWsYN/0e947bfefcb76dfd702a02f290a9ebeb/arctis_nova_elite_sage_gold_img_buy_primary.png?fm=webp&q=90&fit=scale&w=768", steelseries, (float) 599.99);

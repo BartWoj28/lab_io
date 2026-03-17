@@ -3,7 +3,7 @@ GET https://examples.http-client.intellij.net/get
     ?generated-in=IntelliJ IDEA
 
 ### get all stores with params
-GET http://localhost:8080/webapi/stores?phrase=abc
+GET http://localhost:8080/webapi/stores?phrase=foo
 custom-header: custom-value
 Cookie: some-cookie=some-value
 
@@ -43,5 +43,5 @@ Content-Type: application/json
   "name": "Thinkpad",
   "photo": "https://prod-api.mediaexpert.pl/api/images/gallery/thumbnails/images/69/6974298/2039774-1.jpg",
   "price": 9199.99,
-  "producerId": 4
+  "producerId": 16
 }

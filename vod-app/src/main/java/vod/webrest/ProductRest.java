@@ -1,10 +1,13 @@
 package vod.webrest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,6 +18,7 @@ import vod.service.StoreService;
 import vod.webrest.dto.ProductDTO;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,8 +68,17 @@ public class ProductRest {
     }
 
     @PostMapping("/product")
-ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO){
+ResponseEntity<?> addProduct(@Validated @RequestBody ProductDTO productDTO, Errors errors, HttpServletRequest request){
         log.info("about to add new product {}", productDTO);
+
+        if(errors.hasErrors()){
+            Locale locale = localeResolver.resolveLocale(request);
+            String errorMessage = errors.getAllErrors().stream()
+                    .map(oe->messageSource.getMessage(oe.getCode(), new Object[0], locale ))
+                    .reduce("errors\n", (accu, oe)->accu+oe+"\n");
+            return ResponseEntity.badRequest().body(errorMessage);
+        };
+
         Product product = new Product();
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());

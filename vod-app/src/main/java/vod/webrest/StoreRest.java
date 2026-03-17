@@ -45,6 +45,10 @@ public class StoreRest {
         log.info("phrase param: {}", phrase);
         log.info("custom header param: {}", customHeader);
         log.info("some-cookie param: {}", someCookie);
+
+        if(phrase !=null && phrase.equals("foo")){
+            throw new IllegalArgumentException("Foo!");
+        }
         List<Store> stores = storeService.getAllStores();
         log.info("{} stores found",  stores.size());
         return stores;
