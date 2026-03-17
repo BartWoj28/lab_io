@@ -1,0 +1,47 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### get all stores with params
+GET http://localhost:8080/webapi/stores?phrase=abc
+custom-header: custom-value
+Cookie: some-cookie=some-value
+
+### get store by id
+GET localhost:8080/webapi/stores/1
+Accept: application/xml
+
+### get stores with product
+GET http://localhost:8080/webapi/products/1/stores
+
+###create new store
+POST http://localhost:8080/webapi/stores
+Content-Type: application/json
+Accept-Language: it
+
+{
+  "name": "Komputronik",
+  "logo": "https://prowly-uploads.s3.eu-west-1.amazonaws.com/uploads/landing_page/cover_photo/202976/2abf414b2f1056fffd7b92051042dca1.jpg"
+}
+
+
+### get all products
+GET http://localhost:8080/webapi/products
+
+### get product by id
+GET http://localhost:8080/webapi/products/1
+
+###get products in store
+GET http://localhost:8080/webapi/stores/1/products
+
+
+###create new product
+POST http://localhost:8080/webapi/product
+Content-Type: application/json
+
+{
+  "name": "Thinkpad",
+  "photo": "https://prod-api.mediaexpert.pl/api/images/gallery/thumbnails/images/69/6974298/2039774-1.jpg",
+  "price": 9199.99,
+  "producerId": 4
+}
