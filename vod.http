@@ -45,3 +45,7 @@ Content-Type: application/json
   "price": 9199.99,
   "producerId":4
 }
+
+###shutdown service
+
+POST http://localhost:8080/actuator/shutdown
