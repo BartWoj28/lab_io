@@ -40,8 +40,8 @@ POST http://localhost:8080/webapi/product
 Content-Type: application/json
 
 {
-  "name": "Thinkpad",
+  "name": "Apocalypse Now",
   "photo": "https://prod-api.mediaexpert.pl/api/images/gallery/thumbnails/images/69/6974298/2039774-1.jpg",
   "price": 9199.99,
-  "producerId": 16
+  "producerId":4
 }

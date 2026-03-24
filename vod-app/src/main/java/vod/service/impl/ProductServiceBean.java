@@ -1,7 +1,13 @@
 package vod.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import vod.repository.StoreDao;
 import vod.repository.ProducerDao;
 import vod.repository.ProductDao;
@@ -14,20 +20,18 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceBean implements ProductService {
 
     private static final Logger log = Logger.getLogger(ProductService.class.getName());
 
     //@Autowired
-    private ProducerDao producerDao;
-    private StoreDao storeDao;
-    private ProductDao productDao;
+    private final ProducerDao producerDao;
+    private final StoreDao storeDao;
+    private final ProductDao productDao;
+    private final PlatformTransactionManager transactionManager;
 
-    public ProductServiceBean(ProducerDao producerDao, StoreDao storeDao, ProductDao productDao) {
-        this.producerDao = producerDao;
-        this.storeDao = storeDao;
-        this.productDao = productDao;
-    }
+
 
     public List<Product> getAllProducts() {
         log.info("searching all products...");
@@ -74,10 +78,17 @@ public class ProductServiceBean implements ProductService {
         return producerDao.findById(id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public Product addProduct(Product m) {
-        log.info("about to add product " + m);
-        return productDao.add(m);
+    public Product addProduct(Product p) {
+        log.info("about to add product " + p);
+        p = productDao.add(p);
+
+        if (p.getName().equals("Apocalypse Now")) {
+            throw new RuntimeException("not yet!");
+        }
+
+        return p;
     }
 
     @Override
@@ -86,8 +97,8 @@ public class ProductServiceBean implements ProductService {
         return producerDao.add(d);
     }
 
-    @Autowired
-    public void setProducerDao(ProducerDao producerDao) {
-        this.producerDao = producerDao;
-    }
+    //@Autowired
+   // public void setProducerDao(ProducerDao producerDao) {
+     //   this.producerDao = producerDao;
+    //}
 }

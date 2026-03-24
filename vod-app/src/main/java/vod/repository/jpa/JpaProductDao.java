@@ -12,7 +12,6 @@ import vod.repository.ProductDao;
 import java.util.List;
 
 @Repository
-@Primary
 public class JpaProductDao implements ProductDao {
 
     @PersistenceContext
