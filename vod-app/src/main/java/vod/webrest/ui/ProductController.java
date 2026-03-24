@@ -27,25 +27,29 @@ public class ProductController {
             @RequestParam(value="storeId", required = false) Integer storeId,
             @RequestParam(value = "producerId", required = false) Integer producerId
     ) {
-       log.info("about to display products in store {}", storeId);
-       if(storeId != null){
-           Store store = storeService.getStoreById(storeId);
-           List<Product> products = storeService.getProductsInStore(store);
-           model.addAttribute("products", products);
-           model.addAttribute("title", "Products in store : " + store.getName());
-       }
+        log.info("about to display products. StoreId: {}, ProducerId: {}", storeId, producerId);
 
-       if(producerId != null){
-        Producer producer = productService.getProducerById(producerId);
-        List<Product> products = productService.getProductsByProducer(producer);
-        model.addAttribute("products", products);
-        model.addAttribute("title", "Products by producer : " + producer.getName());
-       }
-       else{
-           List<Product> products = productService.getAllProducts();
-           model.addAttribute("products", products);
-           model.addAttribute("title", "All products");
-       }
-       return "productsView";
+        if (storeId != null) {
+
+            Store store = storeService.getStoreById(storeId);
+            List<Product> products = storeService.getProductsInStore(store);
+            model.addAttribute("products", products);
+            model.addAttribute("title", "Products in store: " + store.getName());
+        }
+        else if (producerId != null) {
+
+            Producer producer = productService.getProducerById(producerId);
+            List<Product> products = productService.getProductsByProducer(producer);
+            model.addAttribute("products", products);
+            model.addAttribute("title", "Products by producer: " + producer.getName());
+        }
+        else {
+
+            List<Product> products = productService.getAllProducts();
+            model.addAttribute("products", products);
+            model.addAttribute("title", "All products");
+        }
+
+        return "productsView";
     }
 }

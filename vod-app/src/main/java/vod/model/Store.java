@@ -1,21 +1,29 @@
 package vod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Table(name ="store")
 public class Store {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 @NotNull
 @Size(min=2,max=20)
     private String name;
 
+@Column(name="logo")
     private String logo;
 
+    @ManyToMany(mappedBy = "stores")
     @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
@@ -27,7 +35,7 @@ public class Store {
 
     public Store() {//bezparametrowy
     }
-//settery, gettery i to String - później będziemy korzystać z wynalazku Lombok
+
     public int getId() {
         return id;
     }

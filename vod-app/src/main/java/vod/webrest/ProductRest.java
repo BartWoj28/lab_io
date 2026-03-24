@@ -53,8 +53,8 @@ public class ProductRest {
         }
     }
 
-    @GetMapping("/stores/{storeid}/products")
-    ResponseEntity<List<Product>> getProductsByStore(@PathVariable("storeid") int storeid){
+    @GetMapping("/stores/{storeId}/products")
+    ResponseEntity<List<Product>> getProductsByStore(@PathVariable("storeId") int storeid){
         log.info("about to retrieve products stored in store {}",  storeid);
         Store store = storeService.getStoreById(storeid);
         if(store == null){

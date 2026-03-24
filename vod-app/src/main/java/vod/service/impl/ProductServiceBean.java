@@ -35,7 +35,7 @@ public class ProductServiceBean implements ProductService {
     }
 
     public List<Product> getProductsByProducer(Producer d) {
-        log.info("serching products by producers " + d.getId());
+        log.info("searching products by producers " + d.getId());
         return productDao.findByProducer(d);
     }
 

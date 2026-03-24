@@ -1,20 +1,31 @@
 package vod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
     private String photo;//url
-    private Producer producer;//relacja do rezysera - kolejny obiekt danych w uproszczeniu założenie że jeden film ma 1 reżysera
-    private float price;//rating
+    @ManyToOne
+    @JoinColumn(name="producer_id")
+    private Producer producer;
+    private float price;
     @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "product_store",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id")
+    )
     private List<Store> stores = new ArrayList<>();
-//relacja wiele do wiele - bidirectional
 
     public Product(int id, String name, String photo, Producer producer, float price) {
         this.id = id;

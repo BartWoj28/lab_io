@@ -1,20 +1,23 @@
 package vod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Producer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String country;
     @JsonIgnore
-    private List<Product> products = new ArrayList<>();//relacja 1 do wielu
-//listy zeby przey przełączniu na SpringDate nie było komplikacji
-//lista od seta różni się tym że są w niej powtórzenia oraz trzymamy kolejność wrzucania
-    //struktury danych wazna rzecz w zachowaniu spójności danych w warstwie aplikacyjnej
+    @OneToMany(mappedBy = "producer")
+    private List<Product> products = new ArrayList<>();
+
     public Producer(int id, String name, String country) {
         this.id = id;
         this.name = name;
