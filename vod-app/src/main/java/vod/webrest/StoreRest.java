@@ -7,6 +7,8 @@ import org.springframework.cglib.core.Local;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -87,6 +89,11 @@ return  ResponseEntity.status(200).body(store);
                     .reduce("errors\n", (accu, oe)->accu+oe+"\n");
             return ResponseEntity.badRequest().body(errorMessage);
         };
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("authentication: {}", authentication);
+        log.info("authentication name: {}", authentication.getName());
+
         store = storeService.addStore(store);
         log.info("{} store added",store);
         return ResponseEntity.status(HttpStatus.CREATED).body(store);

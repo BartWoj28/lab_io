@@ -1,5 +1,6 @@
 package vod.service.impl;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import vod.model.Store;
 import vod.model.Product;
@@ -48,6 +49,8 @@ public class StoreServiceBean implements StoreService {
         return storeDao.findByProduct(m);
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public Store addStore(Store store) {
         log.info("adding new store " + store);

@@ -18,9 +18,10 @@ GET http://localhost:8080/webapi/products/1/stores
 POST http://localhost:8080/webapi/stores
 Content-Type: application/json
 Accept-Language: it
+Authorization: Basic dbuser1 dbuser1
 
 {
-  "name": "Komputronik",
+  "name": "Komputronik 2",
   "logo": "https://prowly-uploads.s3.eu-west-1.amazonaws.com/uploads/landing_page/cover_photo/202976/2abf414b2f1056fffd7b92051042dca1.jpg"
 }
 
